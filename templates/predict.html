@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Predict Sales{% endblock %}
+
+{% block content %}
+<section class="predict-page">
+  <div class="predict-header">
+    <a class="btn-outline back-btn" href="{{ url_for('home') }}">← Back to Home</a>
+    <h2>Sales Forecast</h2>
+  </div>
+
+  <p class="muted">
+    Estimate <strong>monthly revenue ($)</strong> for a given item–outlet combination using your trained model.
+  </p>
+
+  <form id="predict-form" method="POST" action="{{ url_for('predict') }}">
+    <div class="form-section">
+      <h3>Item Details</h3>
+      <div class="form-row">
+        <div>
+          <label>Item Type</label>
+          <select name="Item_Type" required>
+            {% for v in data_for_form.item_types %}
+            <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label>Item Fat Content</label>
+          <select name="Item_Fat_Content" required>
+            {% for v in data_for_form.item_fats %}
+            <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label>Item Weight (kg) <span class="muted">(3.0 – 25.0)</span></label>
+          <input name="Item_Weight" type="number" step="0.01" min="3" max="25" placeholder="e.g., 9.5" required>
+        </div>
+
+        <div>
+          <label>Item Visibility <span class="muted">(0.0 – 1.0)</span></label>
+          <input name="Item_Visibility" type="number" step="0.001" min="0" max="1" placeholder="e.g., 0.12" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Outlet Details</h3>
+      <div class="form-row">
+        <div>
+          <label>Outlet Type</label>
+          <select name="Outlet_Type" required>
+            {% for v in data_for_form.outlet_types %}
+            <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label>Outlet Location Tier</label>
+          <select name="Outlet_Location_Type" required>
+            {% for v in data_for_form.location_types %}
+            <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label>Outlet Size</label>
+          <select name="Outlet_Size" required>
+            {% for v in data_for_form.outlet_sizes %}
+            <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label>Outlet Age (years) <span class="muted">(3 – 15)</span></label>
+          <input name="Outlet_Age" type="number" min="3" max="15" placeholder="e.g., 7" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="predict-button">
+      <button class="btn-primary" type="submit">Predict Monthly Revenue</button>
+    </div>
+
+    <p class="muted small text-center">
+      Ensure all entered values are within valid ranges.
+    </p>
+  </form>
+
+  <div class="result-section">
+    <h3>Result</h3>
+    {% if prediction_text %}
+      <div class="result-box">
+        <strong>Predicted Monthly Revenue:</strong> ${{ prediction_text }}
+      </div>
+    {% else %}
+      <p class="muted">Submit the form to see the forecast.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="card" style="padding:18px 20px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <h2 style="margin:0">Interactive Dashboard</h2>
+    <a class="btn-outline" href="{{ url_for('home') }}">← Back to Home</a>
+  </div>
+  <p class="muted" style="margin-top:8px;">Visualize sales, compare outlet performance, and explore key insights across categories.</p>
+</section>
+
+{% if error %}
+  <section class="card">
+    <h3>Dashboard unavailable</h3>
+    <p class="muted">{{ error }}</p>
+    <p class="muted">Place your CSV (see app.py CSV_PATH) in the project root and reload.</p>
+  </section>
+{% else %}
+
+<!-- KPI row -->
+<section class="card" style="padding:16px; margin-top:18px;">
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div>
+        <div class="kpi-title">Total Sales</div>
+        <div class="kpi-value">${{ "{:,.0f}".format(kpis.total_revenue) }}</div>
+      </div>
+      <div class="kpi-sub muted">All-time total sales</div>
+    </div>
+
+    <div class="kpi">
+      <div>
+        <div class="kpi-title">Avg Sales</div>
+        <div class="kpi-value">${{ "{:,.2f}".format(kpis.avg_revenue) }}</div>
+      </div>
+      <div class="kpi-sub muted">Average sale per transaction</div>
+    </div>
+
+    <div class="kpi">
+      <div>
+        <div class="kpi-title">Number of Items</div>
+        <div class="kpi-value">{{ kpis.unique_items }}</div>
+      </div>
+      <div class="kpi-sub muted">Distinct SKUs</div>
+    </div>
+
+    <div class="kpi">
+      <div>
+        <div class="kpi-title">Unique Outlets</div>
+        <div class="kpi-value">{{ kpis.unique_outlets }}</div>
+      </div>
+      <div class="kpi-sub muted">Distinct outlets</div>
+    </div>
+  </div>
+</section>
+
+<!-- Charts grid -->
+<section class="card" style="padding:18px; margin-top:18px;">
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h4>Sales by Fat Content</h4>
+      <div id="chart-0" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Sales by Item Type</h4>
+      <div id="chart-1" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Fat Content Sales by Outlet</h4>
+      <div id="chart-2" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Sales by Outlet Age</h4>
+      <div id="chart-3" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Sales by Outlet Size</h4>
+      <div id="chart-4" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Sales by Outlet Location Type</h4>
+      <div id="chart-5" class="chart-el"></div>
+    </div>
+
+    <div class="chart-card full-width-table">
+  <h4>Metrics by Outlet Type</h4>
+  <div class="matrix-wrap" style="margin-top: 8px;">
+    {{ table_html | safe }}
+  </div>
+</div>
+
+  </div>
+</section>
+
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+
+  let graphs = [];
+  try {
+    graphs = {{ graphs_json | default('[]') | safe }};
+  } catch(e) {
+    graphs = [];
+  }
+
+  // Render up to the number of graphs returned. We placed placeholders 0..5 for charts and 6 is the matrix table (HTML)
+  graphs.forEach((g, idx) => {
+    const el = document.getElementById(`chart-${idx}`);
+    if (!el) return;
+    // Plotly expects data + layout in object form
+    const data = g.data || g.traces || [];
+    const layout = g.layout || {};
+    Plotly.react(el, data, layout, {displayModeBar: false, responsive: true});
+  });
+
+  // resize handler
+  window.addEventListener('resize', () => {
+    for (let i=0;i<10;i++){
+      const el = document.getElementById(`chart-${i}`);
+      if (el && el._fullLayout) Plotly.Plots.resize(el);
+    }
+  });
+</script>
+
+{% endif %}
+{% endblock %}

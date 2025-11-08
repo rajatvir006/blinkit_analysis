@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}Retail Forecasting{% endblock %}</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+  {% block extra_css %}{% endblock %}
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBaFAQkOTUWkOP3R8U03WK19-nvt35yMLA",
+      authDomain: "blinkit-sales-forecast.firebaseapp.com",
+      projectId: "blinkit-sales-forecast",
+      storageBucket: "blinkit-sales-forecast.firebasestorage.app",
+      messagingSenderId: "434379532982",
+      appId: "1:434379532982:web:0e70d452c62ceeb36d1417",
+      measurementId: "G-CTNX36TXYN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.signOutUser = async () => {
+      try {
+        await signOut(auth);
+        await fetch("/logout-backend", { method: "POST" });
+        window.location.href = "{{ url_for('login_page') }}";
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  </script>
+</head>
+
+<body>
+  {% if request.endpoint != 'login_page' %}
+  <header class="topbar">
+    <div class="topbar__left">
+     
+      <div class="logo-text">
+        <span class="blink">blink</span><span class="it">it</span>
+      </div>
+      <span class="tagline">Retail Sales Forecasting & Analytics</span>
+    </div>
+
+    <nav class="topbar__nav">
+      {% if session.get('logged_in') %}
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('predict') }}">Predict</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <button class="btn-outline" onclick="signOutUser()">Logout</button>
+      {% else %}
+        <a class="btn-primary" href="{{ url_for('login_page') }}">Login / Sign up</a>
+      {% endif %}
+    </nav>
+  </header>
+  {% endif %}
+
+  <main class="page-wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div>Retail Forecasting • Flask · Firebase · Power BI</div>
+  </footer>
+</body>
+</html>

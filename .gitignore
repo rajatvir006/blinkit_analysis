@@ -1,0 +1,22 @@
+# Ignore virtual environments
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Environment variables
+.env
+.env.example
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Data files (if not needed in repo)
+*.csv
+*.xlsx
