@@ -196,7 +196,7 @@ Security notes:
 
 ## References
 
-- BlinkIT Grocery Dataset — (Google Drive link, if available)
+- BlinkIT Grocery Dataset — https://drive.google.com/drive/folders/1mKh61zKVBnPJN0A5lc77osGNkmNa-loI?usp=sharing
 - Flask Documentation — https://flask.palletsprojects.com/
 - Firebase Authentication REST API — https://firebase.google.com/docs/reference/rest/auth
 - Scikit-learn — https://scikit-learn.org/
