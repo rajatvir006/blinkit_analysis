@@ -8,6 +8,7 @@ A machine learning and analytics web application built with Flask, Firebase, and
 
 - [Project Overview](#project-overview)
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Installation & Setup](#installation--setup)
@@ -48,6 +49,24 @@ The BlinkIT Retail Sales Forecasting and Analysis System helps analyze historica
 
 ---
 
+## Screenshots
+
+Below are screenshots of the key pages of the web application:
+
+**Login Page**  
+![Login Page](login_page.png)
+
+**Home Page**  
+![Home Page](home_page.png)
+
+**Prediction Page**  
+![Prediction Page](prediction_page.png)
+
+**Dashboard**  
+![Dashboard](dashboard.png)
+
+---
+
 ## Tech Stack
 
 - Frontend: HTML, CSS, Plotly.js
@@ -69,13 +88,17 @@ BlinkIT_Analysis/
 │   ├── home.html
 │   ├── dashboard.html
 │   └── predict.html
-├── static/                       # CSS and static assets
-│   └── styles.css
+├── static/
+│   └── styles.css                # CSS and static assets
 ├── BlinkIT Grocery Data_fully_cleaned.csv
 ├── sales_prediction_model.pkl
 ├── .env
 ├── README.md
-└── requirements.txt
+├── requirements.txt
+├── login_page.png                # <--- Screenshot files
+├── home_page.png
+├── prediction_page.png
+├── dashboard.png
 
 ---
 
