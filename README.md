@@ -57,13 +57,13 @@ Below are screenshots of the key pages of the web application:
 ![Login Page](https://github.com/rajatvir006/blinkit_analysis/blob/bdb037ed033ef54dedb5a8059452c283e6243f38/Screenshot%202025-11-09%20082149.png)
 
 **Home Page**  
-![Home Page](home_page.png)
+![Home Page](https://github.com/rajatvir006/blinkit_analysis/blob/4626d0a4a689523a574b1f18a2523a29c574ee69/Screenshot%202025-11-09%20082413.png)
 
 **Prediction Page**  
-![Prediction Page](prediction_page.png)
+![Prediction Page](https://github.com/rajatvir006/blinkit_analysis/blob/4626d0a4a689523a574b1f18a2523a29c574ee69/Screenshot%202025-11-09%20082734.png)
 
 **Dashboard**  
-![Dashboard](dashboard.png)
+![Dashboard](https://github.com/rajatvir006/blinkit_analysis/blob/4626d0a4a689523a574b1f18a2523a29c574ee69/Screenshot%202025-11-09%20083934.png)
 
 ---
 
