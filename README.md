@@ -155,7 +155,7 @@ Security notes:
 - Dataset Size: ~8,500 records
 - Target: Item_Outlet_Sales
 - R² Score: ≈ 0.54
-- Mean Absolute Error (MAE): ≈ 130
+- Mean Absolute Error (MAE): ≈ 32
 - Notes: The model performs best on known Item–Outlet combinations. Consider re-training with more features or advanced models for improved accuracy.
 
 ---
