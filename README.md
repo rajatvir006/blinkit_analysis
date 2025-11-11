@@ -54,7 +54,7 @@ The BlinkIT Retail Sales Forecasting and Analysis System helps analyze historica
 Below are screenshots of the key pages of the web application:
 
 **Login Page**  
-![Login Page](login_page.png)
+![Login Page](https://github.com/rajatvir006/blinkit_analysis/blob/bdb037ed033ef54dedb5a8059452c283e6243f38/Screenshot%202025-11-09%20082149.png)
 
 **Home Page**  
 ![Home Page](home_page.png)
